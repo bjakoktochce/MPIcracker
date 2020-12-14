@@ -37,3 +37,13 @@ void PasswordFile::LoadEntries()
     LOGGER->Info("Loaded 45 entries from the passwd file.");
 }
 
+bool PasswordFile::Initialize()
+{
+    if (Open() == false)
+    {
+        LOGGER->Error("Password file initialization failed.");
+        return false;
+    }
+    LOGGER->Info("Password file initialization successful.");
+    return true;
+}

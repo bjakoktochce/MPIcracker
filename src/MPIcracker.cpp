@@ -2,6 +2,8 @@
 #include <vector>
 #include <mpi.h>
 
+#include <getopt.h>
+
 #include "Messages.h"
 #include "Logger.h"
 #include "PasswordFile.h"
@@ -18,9 +20,13 @@ int main(int argc, char *argv[])
 	std::cout << PROGRAM_NAME << " " << PROGRAM_VERSION << " by " << PROGRAM_AUTHOR << std::endl;
 	std::cout << RIGHTS << std::endl;
 
+	if (argc == 1)
+	{
+		return 0;
+	}
+
 	std::shared_ptr<PasswordFile> passwordFile = std::make_shared<PasswordFile>(LOGGER);
-	//PasswordFile passwordFile(LOGGER);
-	if (!passwordFile->Open())
+	if (!passwordFile->Initialize())
 	{
 		LOGGER->Info("Exiting.");
 

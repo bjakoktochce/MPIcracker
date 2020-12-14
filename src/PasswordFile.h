@@ -15,6 +15,8 @@ public:
     ~PasswordFile();
     bool Open();
     void LoadEntries();
+
+    bool Initialize();
 };
 
 #endif // __PASSWORDFILE_H__

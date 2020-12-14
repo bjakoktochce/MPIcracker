@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <vector>
+#include <sstream>
 
 PasswordFile::PasswordFile(std::shared_ptr<Logger> logger)
 {
@@ -37,8 +39,25 @@ void PasswordFile::LoadEntries()
     LOGGER->Info("Loaded 45 entries from the passwd file.");
 }
 
+void PasswordFile::ParseFile()
+{
+}
+
+void PasswordFile::ParseLine()
+{
+    std::vector<std::string> strings;
+    std::istringstream f("root:!:0:0::/:/usr/bin/ksh");
+    std::string s;
+    while (std::getline(f, s, ':'))
+    {
+        std::cout << s << std::endl;
+        strings.push_back(s);
+    }
+}
+
 bool PasswordFile::Initialize()
 {
+    ParseFile();
     if (Open() == false)
     {
         LOGGER->Error("Password file initialization failed.");

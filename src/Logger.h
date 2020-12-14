@@ -13,6 +13,13 @@ private:
     const std::string filename = "program.log";
     std::ofstream fs;
 
+    enum level
+    {
+        INFO,
+        WARNING,
+        ERROR
+    };
+
 public:
     Logger(/* args */);
     ~Logger();

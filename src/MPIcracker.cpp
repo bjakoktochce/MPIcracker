@@ -4,12 +4,13 @@
 
 #include <getopt.h>
 
+#include <bitset>
+
 #include "Messages.h"
 #include "Logger.h"
 #include "PasswordFile.h"
 #include "Dictionary.h"
-
-#include <bitset>
+#include "Cracker.h"
 
 int main(int argc, char *argv[])
 {
@@ -26,16 +27,25 @@ int main(int argc, char *argv[])
 	}
 
 	std::shared_ptr<PasswordFile> passwordFile = std::make_shared<PasswordFile>(LOGGER);
-	if (!passwordFile->Initialize())
+	if (!passwordFile->Initialize("passwd"))
 	{
 		LOGGER->Info("Exiting.");
 
-		std::cout << "ERROR: Password file could not be opened." << std::endl;
-		return 0;
+		std::cout << "ERROR: Password file initialization failed." << std::endl;
+		return 1;
 	}
+	passwordFile->LoadEntries();
 
 	std::shared_ptr<Dictionary> dictionary = std::make_shared<Dictionary>(LOGGER);
-	dictionary->Initialize();
+	if (!dictionary->Initialize())
+	{
+		LOGGER->Info("Exiting.");
+
+		std::cout << "ERROR: Dictionary initialization failed." << std::endl;
+		return 1;
+	}
+
+	std::unique_ptr<Cracker> cracker = std::make_unique<Cracker>(LOGGER, passwordFile);
 
 	//std::bitset<16> foo = 16;
 	//std::bitset<16> bar(std::string("0101111001"));
@@ -56,7 +66,7 @@ int main(int argc, char *argv[])
 
 	MPI_Finalize();
 	LOGGER->Info("MPI Finalized");
-	std::vector<int> v;
+	//std::vector<int> v;
 
 	LOGGER->Info("Exiting.");
 }

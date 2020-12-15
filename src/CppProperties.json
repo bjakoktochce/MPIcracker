@@ -1,6 +1,7 @@
 {
   "configurations": [
     {
+      "compiterSwitches": "/std:c++17",
       "inheritEnvironments": [
         "msvc_x64"
       ],

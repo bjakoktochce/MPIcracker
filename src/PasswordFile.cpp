@@ -1,16 +1,17 @@
-
-#include "Logger.h"
-#include "PasswordFile.h"
-#include <memory.h>
 #include <fstream>
 #include <string>
 #include <iostream>
 #include <vector>
 #include <sstream>
 
-PasswordFile::PasswordFile(std::shared_ptr<Logger> logger)
+#include <memory>
+
+#include "PasswordFile.h"
+#include "Logger.h"
+
+PasswordFile::PasswordFile(std::shared_ptr<Logger> &logger) : LOGGER(logger)
 {
-    LOGGER = logger;
+    //LOGGER = logger;
 }
 
 PasswordFile::~PasswordFile()
@@ -29,13 +30,20 @@ bool PasswordFile::Open()
     }
     LOGGER->Info("Passwd file successfully opened.");
 
-    LoadEntries();
-
     return true;
 }
 
 void PasswordFile::LoadEntries()
 {
+    int numberOfLines = 0;
+    std::string line;
+    while (std::getline(fs, line))
+    {
+        //std::istringstream iss(line);
+        std::cout << line << std::endl;
+        numberOfLines++;
+    }
+
     LOGGER->Info("Loaded 45 entries from the passwd file.");
 }
 
@@ -45,17 +53,20 @@ void PasswordFile::ParseFile()
 
 void PasswordFile::ParseLine()
 {
-    std::vector<std::string> strings;
+    //std::vector<std::string> strings;
     std::istringstream f("root:!:0:0::/:/usr/bin/ksh");
     std::string s;
-    while (std::getline(f, s, ':'))
-    {
-        std::cout << s << std::endl;
-        strings.push_back(s);
-    }
+    std::getline(f, s, ':');
+    logins.push_back(s);
+
+    //while (std::getline(f, s, ':'))
+    //{
+    //    std::cout << s << std::endl;
+    //    strings.push_back(s);
+    // }
 }
 
-bool PasswordFile::Initialize()
+bool PasswordFile::Initialize(const std::string &passwordFileName)
 {
     ParseFile();
     if (Open() == false)

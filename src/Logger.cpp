@@ -18,27 +18,27 @@ bool Logger::Initialize()
     return true;
 }
 
-void Logger::Info(std::string message)
+void Logger::Info(const std::string message)
 {
     fs << "INFO: " << message << std::endl;
 }
 
-void Logger::Error(std::string message)
+void Logger::Error(const std::string message)
 {
     fs << "ERROR: " << message << std::endl;
 }
 
-void Logger::Warning(std::string message)
+void Logger::Warning(const std::string message)
 {
     fs << "WARNING: " << message << std::endl;
 }
 
-void Logger::Fatal(std::string message)
+void Logger::Fatal(const std::string message)
 {
     fs << "FATAL: " << message << std::endl;
 }
 
-void Logger::Debug(std::string message)
+void Logger::Debug(const std::string message)
 {
     fs << "DEBUG: " << message << std::endl;
 }

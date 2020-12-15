@@ -1,11 +1,11 @@
-#include "Logger.h"
 #include <memory>
 
 #include "Dictionary.h"
+#include "Logger.h"
 
-Dictionary::Dictionary(std::shared_ptr<Logger> logger)
+Dictionary::Dictionary(std::shared_ptr<Logger> logger) : LOGGER(logger)
 {
-    LOGGER = logger;
+    //LOGGER = logger;
 }
 
 Dictionary::~Dictionary()

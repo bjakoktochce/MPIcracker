@@ -5,7 +5,6 @@
 class IObject
 {
 protected:
-    std::shared_ptr<Logger> LOGGER;
-
 public:
+    std::shared_ptr<Logger> LOGGER;
 };

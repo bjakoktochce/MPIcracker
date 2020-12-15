@@ -1,4 +1,4 @@
-CC		:= g++
+CXX		:= clang++
 CFLAGS	:= -std=c++20 -Wall -Wextra -g
 
 BIN		:= bin
@@ -38,4 +38,4 @@ run: all
 	./$(BIN)/$(EXECUTABLE)
 
 $(BIN)/$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(CFLAGS) $(CINCLUDES) $(CLIBS) $^ -o $@ $(LIBRARIES)
+	$(CXX) $(CFLAGS) $(CINCLUDES) $(CLIBS) $^ -o $@ $(LIBRARIES)
